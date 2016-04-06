@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://fb.me/react-with-addons-0.14.8.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+    <script type="text/babel">
+        var data = [
+    {id: 1, author: "Pete Hunt", text: "This is one comment"},
+    {id: 2, author: "Jordan Walke", text: "This is *another* comment"},
+    {id: 3, author: "Czesław Olak", text: "Hello _world_!"}
+];
+
+var Comment = React.createClass({
+  rawMarkup: function() {
+    var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
+    return { __html: rawMarkup };
+  },
+
+  render: function() {
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        <span dangerouslySetInnerHTML={this.rawMarkup()} />
+      </div>
+    );
+  }
+});
+
+var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function(comment) {
+      return (
+        <Comment id={comment.id} author={comment.city} key={comment.country}>
+          {comment.id} {comment.name}
+        </Comment>
+      );
+    });
+    return (
+      <div className="commentList">
+        {commentNodes}
+      </div>
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      <div className="commentForm">
+        Hello, world! I am a CommentForm.
+      </div>
+    );
+  }
+});
+
+var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data.data.items});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data} />
+        <CommentForm />
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <CommentBox url="/default/data" />,
+  document.getElementById('content')
+);
+
+ReactDOM.render(
+        React.createElement(CommentBox, null),
+        document.getElementById('content')
+        );
+
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="content"></div>
+{% endblock %}
+
