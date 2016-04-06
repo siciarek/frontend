@@ -48,9 +48,9 @@
 </script>
 <?php $view['slots']->stop() ?>
 
-<br/>
-
 <div ng-app="application" class="w3-container w3-opensans">
+
+    <h1>Application</h1>
 
     <div class="w3-container w3-pale-green w3-leftbar w3-border-green w3-card-2">
         <p>London is the capital city of England.
@@ -67,7 +67,7 @@
     <br/>
 
     <div ng-controller="dummyController" class="w3-card-2 w3-container">
-        <h1>List ({{data.length}})</h1>
+        <h3>List ({{data.length}})</h3>
 
         <ul class="w3-ul">
             <li ng-repeat="rec in data|orderBy:'-name'">
@@ -80,7 +80,7 @@
     <br/>
 
     <div ng-controller="customersController" class="w3-card-2 w3-container">
-        <h1>Table ({{data.length}})</h1>
+        <h3>Table ({{data.length}})</h3>
 
         <table class="w3-table-all">
             <thead>
