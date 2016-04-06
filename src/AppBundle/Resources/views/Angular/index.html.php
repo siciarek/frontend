@@ -1,21 +1,5 @@
 <?php $view->extend('::base.html.php') ?>
 
-<?php $view['slots']->start('stylesheets') ?>
-<!-- http://www.w3schools.com/w3css/ -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,400italic,600italic,700,700italic,800,800italic|Open+Sans+Condensed:300,300italic,700&subset=latin-ext' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="<?php echo $view['assets']->getUrl('bundles/app/css/angular/application.css') ?>">
-<?php $view['slots']->stop() ?>
-
-<?php $view['slots']->start('javascripts') ?>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script>
-    var dataUrl = '<?php echo $view['router']->url('default.data'); ?>';
-</script>
-<script src="<?php echo $view['assets']->getUrl('bundles/app/js/angular/application.js') ?>"></script>
-<?php $view['slots']->stop() ?>
-
 <div ng-app="application" class="w3-container w3-opensans">
 
     <h1>Application</h1>
@@ -77,3 +61,15 @@
 
 <br/>
 
+<?php $view['slots']->start('stylesheets') ?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,400italic,600italic,700,700italic,800,800italic|Open+Sans+Condensed:300,300italic,700&subset=latin-ext' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="<?php echo $view['assets']->getUrl('bundles/app/css/angular/application.css') ?>">
+<?php $view['slots']->stop() ?>
+
+<?php $view['slots']->start('javascripts') ?>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>var dataUrl = '<?php echo $view['router']->url('default.data'); ?>';</script>
+<script src="<?php echo $view['assets']->getUrl('bundles/app/js/angular/application.js') ?>"></script>
+<?php $view['slots']->stop() ?>
