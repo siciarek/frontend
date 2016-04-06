@@ -5,13 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,400italic,600italic,700,700italic,800,800italic|Open+Sans+Condensed:300,300italic,700&subset=latin-ext' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-indigo.css">
-<style>
-    .w3-opensans {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-    }
-</style>
+<link rel="stylesheet" href="<?php echo $view['assets']->getUrl('bundles/app/css/angular/application.css') ?>">
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('javascripts') ?>
@@ -19,33 +13,7 @@
 <script>
     var dataUrl = '<?php echo $view['router']->url('default.data'); ?>';
 </script>
-
-<script>
-    var app = angular.module('application', []);
-
-    app.controller('customersController', function ($scope, $http) {
-        $http.get(dataUrl).then(function (response) {
-            $scope.data = response.data.data.items;
-        });
-    });
-
-    app.controller('dummyController', function ($scope, $http) {
-        $scope.data = [
-            {
-                id: 1,
-                name: 'Kura'
-            },
-            {
-                id: 2,
-                name: 'Kot'
-            },
-            {
-                id: 3,
-                name: 'Albatros'
-            }
-        ];
-    });
-</script>
+<script src="<?php echo $view['assets']->getUrl('bundles/app/js/angular/application.js') ?>"></script>
 <?php $view['slots']->stop() ?>
 
 <div ng-app="application" class="w3-container w3-opensans">
