@@ -10,9 +10,18 @@ app.controller('customersController', function ($scope, $http, $interval) {
 
     var infoSelector = 'js-modal-info';
 
-    $scope.selected = { rec: null };
+    $scope.selected = {rec: null};
 
-    $scope.showInfo = function () {
+    $scope.showInfo = function (id) {
+        var i = 0;
+
+        for (; i < $scope.data.length; i++) {
+            if ($scope.data[i].id === id) {
+                $scope.selected.rec = $scope.data[i];
+                break;
+            }
+        }
+
         var element = document.getElementById(infoSelector);
         element.style.display = 'block';
     };
@@ -25,8 +34,8 @@ app.controller('customersController', function ($scope, $http, $interval) {
     $scope.remove = function (id) {
         var i = 0;
 
-        for(; i < $scope.data.length; i++) {
-            if($scope.data[i].id === id) {
+        for (; i < $scope.data.length; i++) {
+            if ($scope.data[i].id === id) {
                 break;
             }
         }
