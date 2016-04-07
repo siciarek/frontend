@@ -16,7 +16,7 @@ class AngularController extends Controller
 
     /**
      * @Route("/index", name="angular.index")
-     * @Template(engine="php")
+     * @Template()
      */
     public function indexAction(Request $request)
     {

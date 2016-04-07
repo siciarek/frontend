@@ -1,9 +1,41 @@
-var app = angular.module('application', []);
-
-app.controller('customersController', function ($scope, $http) {
-    $http.get(dataUrl).then(function (response) {
+function fetchData(url, $http, $scope) {
+    $http.get(url).then(function (response) {
         $scope.data = response.data.data.items;
     });
+}
+
+var app = angular.module('application', []);
+
+app.controller('customersController', function ($scope, $http, $interval) {
+    $scope.selected = {rec: null};
+
+    $scope.showInfo = function () {
+        var element = document.getElementById('js-modal-info');
+        element.style.display = 'block';
+    };
+
+    $scope.hideInfo = function () {
+        var element = document.getElementById('js-modal-info');
+        element.style.display = 'none';
+    };
+
+    $scope.remove = function (id) {
+        var i = 0;
+
+        for(; i < $scope.data.length; i++) {
+            if($scope.data[i].id === id) {
+                break;
+            }
+        }
+
+        $scope.data.splice(i, 1);
+    };
+
+    fetchData(dataUrl, $http, $scope);
+
+    $interval(function () {
+        fetchData(dataUrl, $http, $scope);
+    }, refreshAfter * 1000)
 });
 
 app.controller('dummyController', function ($scope, $http) {

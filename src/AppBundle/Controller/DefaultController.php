@@ -14,13 +14,98 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
 
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+
+    protected static $emails = [];
+    protected static $usernames = [];
+
+    public function generateUsers($count)
+    {
+        $faker = $this->get('faker.generator');
+
+        $gender = [
+            self::GENDER_MALE,
+            self::GENDER_FEMALE,
+        ];
+
+        $persons = [];
+
+        foreach (range(1, $count) as $i) {
+
+            $gndr = $gender[array_rand($gender)];
+
+            $firstName = $faker->firstNameMale;
+            $lastName = $faker->lastNameMale;
+
+            if ($gndr === self::GENDER_FEMALE) {
+                $firstName = $faker->firstNameFemale;
+                $lastName = $faker->lastNameFemale;
+            }
+
+            $fname = mb_convert_case($firstName, MB_CASE_LOWER, 'UTF-8');
+            $lname = mb_convert_case($lastName, MB_CASE_LOWER, 'UTF-8');
+            $fname = iconv('UTF-8', 'ASCII//TRANSLIT', $fname);
+            $lname = iconv('UTF-8', 'ASCII//TRANSLIT', $lname);
+
+            $username = $fname[0] . $lname;
+            $password = '4561237';
+
+            switch (rand(1, 3)) {
+                case 1:
+                    $email = sprintf('%s@%s', $username, $faker->safeEmailDomain);
+                    break;
+                case 2:
+                    $email = sprintf('%s@%s', $lname, $faker->safeEmailDomain);
+                    break;
+                case 3:
+                    $email = sprintf('%s.%s@%s', $fname, $lname, $faker->safeEmailDomain);
+                    break;
+            };
+
+            if (array_key_exists($username, self::$usernames)) {
+                continue;
+            }
+
+            if (array_key_exists($email, self::$emails)) {
+                continue;
+            }
+
+            self::$emails[$email] = true;
+            self::$usernames[$username] = true;
+
+            $user = new \stdClass();
+            $user->id = $i;
+            $user->username = $username;
+            $user->firstName = $firstName;
+            $user->lastName = $lastName;
+            $user->gender = $gndr;
+            $user->email = $email;
+
+            $persons[] = $user;
+        }
+
+        return $persons;
+    }
+
     /**
      * @Route("/data", defaults={"_format":"json"}, name="default.data")
      */
     public function dataAction(Request $request)
     {
+        $count = rand(20, 35);
+        $items = $this->generateUsers($count);
 
         $data = [
+            "data" => [
+                "items" => $items,
+            ]
+        ];
+
+        $data = json_decode(json_encode($data), JSON_OBJECT_AS_ARRAY);
+
+
+        $xdata = [
             "data" => [
                 "items" => [
                     [
