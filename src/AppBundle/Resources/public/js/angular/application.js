@@ -6,6 +6,23 @@ function fetchData(url, $http, $scope) {
 
 var app = angular.module('application', []);
 
+app.controller('customerEditController', ['$scope', function ($scope) {
+        
+        $scope.master = {};
+
+        $scope.update = function (user) {
+            $scope.master = angular.copy(user);
+        };
+
+        $scope.reset = function () {
+            $scope.user = angular.copy($scope.master);
+        };
+
+        $scope.reset();
+    }
+]);
+
+
 app.controller('customersController', function ($scope, $http, $interval) {
 
     var infoSelector = 'js-modal-info';

@@ -23,6 +23,7 @@
             </div>
 
             <br/>
+            
 
             <div ng-controller="dummyController" class="w3-card-2 w3-container w3-responsive">
                 <h3>
@@ -36,6 +37,51 @@
                     </li>
                 </ul>
                 <br/>
+            </div>
+
+            <br/>
+
+            <div ng-controller="customerEditController" class="w3-card-2 w3-container w3-responsive">
+                
+                <h3>
+                    <i class="fa-edit lt fa fa-lg w3-text-grey"></i>
+                    Input Form
+                </h3>
+                
+                <form novalidate>
+                    <p>
+                        <label class="w3-text-grey">Gender</label>
+                        <input id="gender-male" type="radio" class="w3-radio" ng-model="user.gender" value="male" />
+                        <label for="gender-male" class="w3-validate">Male</label>
+                        <input id="gender-female" type="radio" class="w3-radio" ng-model="user.gender" value="female" />
+                        <label for="gender-female" class="w3-validate">Female</label>
+                        <hr/>
+                    </p>
+
+                    <p>
+                        <label class="w3-text-grey">First name</label>
+                        <input class="w3-input" required ng-model="user.firstName" /><br />
+                    </p>
+
+                    <p>
+                        <label class="w3-text-grey">Last name</label>
+                        <input class="w3-input" type="text" ng-model="user.lastName" /><br />
+                    </p>
+
+                    <p>
+                        <label class="w3-text-grey">E-mail</label>
+                        <input class="w3-input" type="email" ng-model="user.email" /><br />
+                    </p>
+
+                    <button class="w3-btn w3-padding w3-teal" type="button" ng-click="reset()">Reset ❯</button>
+                    <button class="w3-btn w3-padding w3-teal" type="button" ng-click="update(user)">Save ❯</button>
+                </form>
+                
+                <hr/>
+                
+                <pre>user = {{ user | json}}</pre>
+                
+                <pre>master = {{ master | json}}</pre>
             </div>
 
             <br/>
@@ -116,8 +162,8 @@
     {{ parent() }}
     <script src="{{ asset('//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js') }}"></script>
     <script>
-                                    var dataUrl = '{{ url('default.data') }}';
-                                    var refreshAfter = 30;
+                                var dataUrl = '{{ url('default.data') }}';
+                                var refreshAfter = 30;
     </script>
     <script src="{{ asset('bundles/app/js/angular/application.js') }}"></script>
 {% endblock %}
