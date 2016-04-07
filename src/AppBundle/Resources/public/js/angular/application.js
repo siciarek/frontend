@@ -7,15 +7,18 @@ function fetchData(url, $http, $scope) {
 var app = angular.module('application', []);
 
 app.controller('customersController', function ($scope, $http, $interval) {
-    $scope.selected = {rec: null};
+
+    var infoSelector = 'js-modal-info';
+
+    $scope.selected = { rec: null };
 
     $scope.showInfo = function () {
-        var element = document.getElementById('js-modal-info');
+        var element = document.getElementById(infoSelector);
         element.style.display = 'block';
     };
 
     $scope.hideInfo = function () {
-        var element = document.getElementById('js-modal-info');
+        var element = document.getElementById(infoSelector);
         element.style.display = 'none';
     };
 
