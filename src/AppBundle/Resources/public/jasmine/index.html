@@ -22,8 +22,15 @@
     <body>
         <div class="container">
 
-            <h1 ng-show="showHeader" class="page-header">Application</h1>
-            <h1 ng-hide="showHeader" class="page-header">Header is hidden</h1>
+            <h1 ng-show="showHeader" class="page-header">
+                <i class="fa-cog fa text-muted"></i>
+                {{ name }}
+            </h1>
+            
+            <h1 ng-hide="showHeader" class="page-header">
+                <i class="fa-cog fa text-muted"></i>
+                Header is hidden
+            </h1>
 
             <div class="alert alert-success">
                 <form>
@@ -35,7 +42,6 @@
             
             <notification-info ng-init=" message='Kilka słów informacyjnych.'"></notification-info>
             <notification-error ng-init=" message='Zażółć gęślą jaźń.'"></notification-error>
-
 
             <div class="panel panel-info">
                 <div class="panel-heading">

@@ -1,5 +1,9 @@
 var APP = angular.module('APP', []);
 
+APP.run(function($rootScope) {
+    $rootScope.name = 'Sample AngularJS application';
+});
+
 APP.controller('DefaultController', ['$scope', function ($scope) {
         $scope.data = {
             name: 'Zażółć gęślą jaźń',
