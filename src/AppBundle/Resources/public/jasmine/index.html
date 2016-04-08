@@ -1,21 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<html ng-app="APP">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-    <!-- http://jasmine.github.io/1.3/introduction.html -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-mocks.js"></script>
-</head>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
-<body>
-    <!-- APPLICATION: -->
-    <script src="./js/application/application.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <!-- TESTS: -->
-    <script src="./js/tests/application.test.js"></script>
-</body>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+        <!-- APPLICATION: -->
+
+        <script src="/bundles/app/jasmine/js/application/application.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+
+            <h1 ng-show="showHeader" class="page-header">Application</h1>
+            <h1 ng-hide="showHeader" class="page-header">Header is hidden</h1>
+
+            <div class="alert alert-success">
+                <form>
+                    <label>Header visible:
+                        <input type="checkbox" ng-model="showHeader" ng-init="showHeader = true">
+                    </label>
+                </form>
+            </div>
+            
+            <notification-info ng-init=" message='Kilka słów informacyjnych.'"></notification-info>
+            <notification-error ng-init=" message='Zażółć gęślą jaźń.'"></notification-error>
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>
+                        <i class="fa-list-alt fa"></i>
+                        Form validation
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <form name="form" class="form-horizontal" style="padding:0 20px">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>    
+                            <input id="email" class="form-control" name="email" ng-model="email" required type="email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pesel">PESEL</label>    
+                            <input id="pesel" class="form-control" name="pesel" ng-model="pesel" required type-pesel/>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Given e-mail is valid: <strong>{{ form.email.$valid }}</strong><br/>
+                    Given PESEL is valid: <strong>{{ form.pesel.$valid }}</strong>
+                </div>
+            </div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum ipsum erat, sit amet egestas lectus ultricies semper. Cras in erat eget felis consequat condimentum. Integer eu accumsan orci, in pulvinar tellus.</p>
+
+            <list ng-controller="DefaultController"></list>
+
+            <p>Mauris eu est lobortis, placerat augue id, pretium libero. Cras sed lorem viverra, semper elit nec, laoreet metus. Etiam molestie ex at eros finibus dictum. Ut finibus euismod ligula, sed rhoncus magna tristique at. Mauris ac mattis nulla. Mauris id tempor ex. Cras at tempor enim.</p>
+
+            <p>Nullam ultrices nulla id enim convallis, eget rutrum ante semper. Aenean sed nulla vel magna euismod molestie vitae sit amet dui. Cras leo metus, vehicula eu tempus sit amet, aliquet vel eros. </p>
+
+
+            <div ng-include="'/bundles/app/jasmine/includes/part.html'"></div>
+
+        </div>
+
+    </body>
+</html>
